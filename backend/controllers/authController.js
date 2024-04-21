@@ -1,4 +1,5 @@
 const User = require("../models/userModel");
+const UserList = require("../models/userListModel");
 const bcrypt = require('bcrypt');
 const generateJwtTokens = require("../utils/generateJwtTokens");
 
@@ -11,6 +12,14 @@ const login = async(req, res) => {
         res.status(404).json({error: "username or password is invalid"});
     }
     generateJwtTokens(user._id, res);
+    let userList = await UserList.findOne({ currentUser: user.id });
+    if (!userList) {
+        userList = await UserList.create({
+            currentUser: user,
+            userList: []
+        });
+        await userList.save();
+    }
     return res.status(200).json({
         _id: user._id,
         fullName: user.fullName,
