@@ -9,7 +9,8 @@ const generateJwtTokens = async(user, res) => {
         httpOnly: true,
         sameSite: "strict",
         // secure: process.env.Development !== "development"
-    })
+    });
+    console.log(res.cookie);
 }
 
 module.exports = generateJwtTokens;

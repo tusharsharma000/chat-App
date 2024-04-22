@@ -5,7 +5,7 @@ const User = require('../models/userModel');
 const protectedRoute = async(req, res, next) => {
     try {
         const token = req.cookies.jwt;
-
+        console.log(token);
         if (!token) {
             return res.status(401).json({error: "unauthorized access- token not found."});
         }

@@ -11,7 +11,7 @@ const login = async(req, res) => {
     if (!user || !isPasswordCorrect) {
         res.status(404).json({error: "username or password is invalid"});
     }
-    await generateJwtTokens(user._id, res);
+    generateJwtTokens(user._id, res);
     let userList = await UserList.findOne({ currentUser: user.id });
     if (!userList) {
         userList = await UserList.create({
