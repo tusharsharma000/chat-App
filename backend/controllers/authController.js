@@ -11,8 +11,11 @@ const login = async(req, res) => {
     if (!user || !isPasswordCorrect) {
         res.status(404).json({error: "username or password is invalid"});
     }
+    console.log(user);
     generateJwtTokens(user._id, res);
+    console.log(res.cookie);
     let userList = await UserList.findOne({ currentUser: user.id });
+    console.log(userList);
     if (!userList) {
         userList = await UserList.create({
             currentUser: user,
